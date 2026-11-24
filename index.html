@@ -72,6 +72,24 @@
   .contact-list a { color: #111111; text-decoration: none; font-weight: 600; }
   .contact-list a:hover { text-decoration: underline; }
   footer { text-align: center; padding: 24px 0 56px; color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+  .chat-btn { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%; border: none; background: #033b86; color: #ffffff; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,0.35); z-index: 10; display: flex; align-items: center; justify-content: center; }
+  .chat-btn svg { width: 28px; height: 28px; }
+  .chat-panel { position: fixed; right: 20px; bottom: 92px; width: 360px; max-width: calc(100vw - 40px); max-height: 70vh; background: #ffffff; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.35); z-index: 10; display: none; flex-direction: column; overflow: hidden; }
+  .chat-panel.open { display: flex; }
+  .chat-header { background: #033b86; color: #ffffff; padding: 14px 18px; }
+  .chat-header strong { display: block; font-size: 1rem; }
+  .chat-header span { font-size: 0.8rem; opacity: 0.85; }
+  .chat-body { padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.95rem; line-height: 1.5; }
+  .msg.bot { background: #eef2f7; color: #111111; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .msg.user { background: #033b86; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .msg a { color: #033b86; font-weight: 600; }
+  .msg.user a { color: #ffffff; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 12px; }
+  .chip { border: 1px solid #033b86; color: #033b86; background: #ffffff; border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; }
+  .chat-input { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid #eef0f3; }
+  .chat-input input { flex: 1; border: 1px solid #d5dce3; border-radius: 999px; padding: 10px 14px; font-size: 0.95rem; outline: none; min-width: 0; }
+  .chat-input button { border: none; background: #033b86; color: #ffffff; border-radius: 999px; padding: 10px 16px; font-weight: 600; cursor: pointer; }
   @media (max-width: 520px) {
     header { padding: 56px 0 36px; }
     header h1 { font-size: 1.6rem; }
@@ -181,5 +199,80 @@
   </footer>
 
 </div>
+<button class="chat-btn" id="chatBtn" aria-label="Abrir asistente">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header"><strong>Asistente INITRE</strong><span>En línea · Responde al instante</span></div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot">¡Hola! Soy el asistente de Ingeniería INITRE. Pregúntame por nuestros servicios, las apps o cómo contactarnos.</div>
+  </div>
+  <div class="chips">
+    <button class="chip">Servicios</button>
+    <button class="chip">Páginas web</button>
+    <button class="chip">Impresión 3D</button>
+    <button class="chip">Contacto</button>
+  </div>
+  <div class="chat-input">
+    <input id="chatText" type="text" placeholder="Escribe tu pregunta..." autocomplete="off">
+    <button id="chatSend">Enviar</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var WA = 'https://wa.me/522225858320';
+  var rules = [
+    { k: ['hola', 'buenas', 'que tal', 'buen dia', 'buenas tardes', 'buenas noches'], r: '¡Hola! ¿En qué te ayudo? Puedes preguntarme por nuestros servicios, las apps o cómo contactarnos.' },
+    { k: ['software', 'programa', 'ejecutable', 'sistema', 'aplicacion android'], r: 'Creamos programas para pc, ejecutables, aplicaciones android, trabajamos de la mano con el cliente, mandando revisiones y cambios sin limite.' },
+    { k: ['pagina web', 'paginas web', 'pagina', 'sitio web', 'figma', 'html'], r: 'Desarrollamos su pagina web con herramientas como Figma, en html + CSS, usted nos da la idea y se la desarrollamos, entregamos código html terminado o si gusta se la montamos en la red.' },
+    { k: ['impresion', 'impresora', 'imprimir', 'pieza'], r: 'Imprimimos sus piezas en 3D basados en un plano que el cliente debe proporcionar. De no contar con plano, pasa medidas y podemos desarrollar el plano por ti. Nuestra impresora tiene un límite de 180 × 180 × 180 mm (ancho × profundidad × altura).' },
+    { k: ['diseño', 'diseno', 'solidworks', 'stl', 'plano', 'modelo'], r: 'Diseñamos sus piezas 2D o 3D, usamos SolidWorks para diseñar sus modelos 3D y entregamos en formato STL, pero de igual forma si busca un plano se lo podemos entregar en pdf.' },
+    { k: ['3d'], r: 'Trabajamos impresión 3D y diseños 3D. ¿Te interesa imprimir una pieza o diseñar un modelo?' },
+    { k: ['precio', 'costo', 'cuanto cuesta', 'cuanto vale', 'cotizacion', 'cotizar'], r: 'El costo depende de cada proyecto. Para una cotización escríbenos por WhatsApp al 222 585 8320.' },
+    { k: ['mercado', 'equipos industriales', 'piezas industriales'], r: 'Mercado Industrial Initre es compra y venta de equipos industriales. Visita su sitio web: <a href="https://mercado-industrial.onrender.com" target="_blank" rel="noopener">mercado-industrial.onrender.com</a>' },
+    { k: ['carosi', 'seguridad initre', 'play store', 'descargar', 'google play', 'apps'], r: 'Tenemos 3 apps en Google Play: Servicios Initre, Carosi y Seguridad Initre. Las encuentras en la sección "Nuestras aplicaciones" de esta página.' },
+    { k: ['contacto', 'whatsapp', 'telefono', 'correo', 'email', 'ubicacion', 'donde estan', 'direccion', 'horario'], r: 'Puedes contactarnos por WhatsApp al <a href="' + WA + '" target="_blank" rel="noopener">222 585 8320</a> o por correo a mercadoindustrialinitre@gmail.com. Estamos en Puebla, México.' },
+    { k: ['servicio', 'servicios', 'que hacen', 'que ofrecen'], r: 'Nuestros servicios son: Desarrollo de software, Páginas web, Impresiones 3D y Diseños 3D. Toca un servicio en la página para ver su descripción, o pregúntame por uno.' },
+    { k: ['gracias'], r: '¡De nada! Si necesitas algo más, aquí estoy.' }
+  ];
+  var panel = document.getElementById('chatPanel');
+  var body = document.getElementById('chatBody');
+  var input = document.getElementById('chatText');
+  document.getElementById('chatBtn').addEventListener('click', function () {
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) input.focus();
+  });
+  function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  function reply(q) {
+    var t = norm(q);
+    for (var i = 0; i < rules.length; i++) {
+      for (var j = 0; j < rules[i].k.length; j++) {
+        if (t.indexOf(rules[i].k[j]) !== -1) return rules[i].r;
+      }
+    }
+    return 'No tengo esa respuesta preparada, pero Fernando te atiende por WhatsApp: <a href="' + WA + '" target="_blank" rel="noopener">222 585 8320</a>';
+  }
+  function addMsg(text, who) {
+    var d = document.createElement('div');
+    d.className = 'msg ' + who;
+    d.innerHTML = text;
+    body.appendChild(d);
+    body.scrollTop = body.scrollHeight;
+  }
+  function send(text) {
+    var v = (text || input.value).trim();
+    if (!v) return;
+    addMsg(v.replace(/</g, '&lt;'), 'user');
+    input.value = '';
+    setTimeout(function () { addMsg(reply(v), 'bot'); }, 400);
+  }
+  document.getElementById('chatSend').addEventListener('click', function () { send(); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function (c) { c.addEventListener('click', function () { send(c.textContent); }); });
+})();
+</script>
 </body>
 </html>
