@@ -28,9 +28,13 @@
   header .logo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,0.35); margin-bottom: 20px; }
   header h1 { font-size: 2rem; letter-spacing: 0.14em; font-weight: 700; color: #ffffff; }
   header p { margin-top: 12px; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
-  .services-list { list-style: none; }
-  .services-list li { padding: 12px 0; border-top: 1px solid #f0f0f0; font-weight: 600; }
-  .services-list li:first-child { border-top: none; padding-top: 0; }
+  .service details { padding: 12px 0; border-top: 1px solid #f0f0f0; }
+  .service details:first-child { border-top: none; padding-top: 0; }
+  .service summary { cursor: pointer; font-size: 1.05rem; font-weight: 600; list-style: none; }
+  .service summary::-webkit-details-marker { display: none; }
+  .service summary::after { content: " +"; color: #033b86; }
+  .service details[open] summary::after { content: " −"; }
+  .service p { color: #555555; margin-top: 8px; }
   section { background: #ffffff; border-radius: 16px; padding: 28px; margin-bottom: 16px; }
   h2 { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 24px; font-weight: 600; }
   .app { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-top: 1px solid #f0f0f0; }
@@ -76,12 +80,24 @@
 
   <section>
     <h2>Servicios</h2>
-    <ul class="services-list">
-      <li>Desarrollo de software</li>
-      <li>Páginas web</li>
-      <li>Impresiones 3D</li>
-      <li>Diseños 3D</li>
-    </ul>
+    <div class="service">
+      <details>
+        <summary>Desarrollo de software</summary>
+        <p>Creamos programas para pc, ejecutables, aplicaciones android, trabajamos de la mano con el cliente, mandando revisiones y cambios sin limite</p>
+      </details>
+      <details>
+        <summary>Páginas web</summary>
+        <p>Desarrollamos su pagina web con herramientas como Figma, en html + CSS, usted nos da la idea y se la desarrollamos, entregamos código html terminado o si gusta se la montamos en la red</p>
+      </details>
+      <details>
+        <summary>Impresiones 3D</summary>
+        <p>imprimimos sus piezas en 3D basados en un plano que el cliente debe proporcionar, de no contar con plano pasar medidas y podemos desarrollar el plano por usted, nuestra impresora tiene un límite de 180 × 180 × 180 mm<br>Ancho × profundidad × altura</p>
+      </details>
+      <details>
+        <summary>Diseños 3D</summary>
+        <p>Diseñamos sus piezas 2D o 3D, usamos SolidWorks para diseñar sus modelos 3D y entregamos en formato STL, pero de igual forma si busca un plano se lo podemos entregar en pdf</p>
+      </details>
+    </div>
   </section>
 
   <section>
