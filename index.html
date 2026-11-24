@@ -18,6 +18,9 @@
   header { text-align: center; padding: 72px 0 48px; }
   header h1 { font-size: 2rem; letter-spacing: 0.14em; font-weight: 700; }
   header p { margin-top: 12px; color: #666666; font-size: 1.05rem; }
+  .services-list { list-style: none; }
+  .services-list li { padding: 12px 0; border-top: 1px solid #f0f0f0; font-weight: 600; }
+  .services-list li:first-child { border-top: none; padding-top: 0; }
   section { padding: 32px 0; border-top: 1px solid #e5e5e5; }
   h2 { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 24px; font-weight: 600; }
   .app { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-top: 1px solid #f0f0f0; }
@@ -35,7 +38,8 @@
     padding: 10px 20px;
     border-radius: 999px;
   }
-  .btn:hover { background: #333333; }
+  .btn-whatsapp { background: #25d366; margin-top: 20px; }
+  .btn-whatsapp:hover { background: #1eb856; }
   .market p { color: #555555; margin-bottom: 16px; }
   .contact-list { list-style: none; }
   .contact-list li { padding: 12px 0; border-top: 1px solid #f0f0f0; }
@@ -56,8 +60,18 @@
 
   <header>
     <h1>INGENIERÍA INITRE</h1>
-    <p>Aplicaciones móviles y mercado industrial</p>
+    <p>Somos desarrolladores de software y de aplicaciones android, además de hacer impresiones 3D</p>
   </header>
+
+  <section>
+    <h2>Servicios</h2>
+    <ul class="services-list">
+      <li>Desarrollo de software</li>
+      <li>Páginas web</li>
+      <li>Impresiones 3D</li>
+      <li>Diseños 3D</li>
+    </ul>
+  </section>
 
   <section>
     <h2>Nuestras aplicaciones</h2>
@@ -116,6 +130,7 @@
         Puebla, México
       </li>
     </ul>
+    <a class="btn btn-whatsapp" href="https://wa.me/522225858320" target="_blank" rel="noopener">Contactar por WhatsApp</a>
   </section>
 
   <footer>
