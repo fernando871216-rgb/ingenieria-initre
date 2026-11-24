@@ -9,19 +9,29 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #ffffff;
+    background: #033b86;
     color: #111111;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('mercado-industrial-initre-logo.jpg') center center / 90vmin no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
   header { text-align: center; padding: 72px 0 48px; }
-  header h1 { font-size: 2rem; letter-spacing: 0.14em; font-weight: 700; }
-  header p { margin-top: 12px; color: #666666; font-size: 1.05rem; }
+  header .logo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,0.35); margin-bottom: 20px; }
+  header h1 { font-size: 2rem; letter-spacing: 0.14em; font-weight: 700; color: #ffffff; }
+  header p { margin-top: 12px; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
   .services-list { list-style: none; }
   .services-list li { padding: 12px 0; border-top: 1px solid #f0f0f0; font-weight: 600; }
   .services-list li:first-child { border-top: none; padding-top: 0; }
-  section { padding: 32px 0; border-top: 1px solid #e5e5e5; }
+  section { background: #ffffff; border-radius: 16px; padding: 28px; margin-bottom: 16px; }
   h2 { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 24px; font-weight: 600; }
   .app { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-top: 1px solid #f0f0f0; }
   .app:first-of-type { border-top: none; padding-top: 0; }
@@ -40,14 +50,14 @@
   }
   .btn-whatsapp { background: #25d366; margin-top: 20px; }
   .btn-whatsapp:hover { background: #1eb856; }
-  .market p { color: #555555; margin-bottom: 16px; }
+  .market p, .market-text { color: #555555; margin-bottom: 16px; }
   .contact-list { list-style: none; }
   .contact-list li { padding: 12px 0; border-top: 1px solid #f0f0f0; }
   .contact-list li:first-child { border-top: none; padding-top: 0; }
   .contact-list span { display: block; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #888888; }
   .contact-list a { color: #111111; text-decoration: none; font-weight: 600; }
   .contact-list a:hover { text-decoration: underline; }
-  footer { text-align: center; padding: 40px 0 56px; border-top: 1px solid #e5e5e5; color: #999999; font-size: 0.85rem; }
+  footer { text-align: center; padding: 24px 0 56px; color: rgba(255,255,255,0.8); font-size: 0.85rem; }
   @media (max-width: 520px) {
     header { padding: 56px 0 36px; }
     header h1 { font-size: 1.6rem; }
@@ -59,6 +69,7 @@
 <div class="wrap">
 
   <header>
+    <img class="logo" src="mercado-industrial-initre-logo.jpg" alt="Mercado Industrial INITRE">
     <h1>INGENIERÍA INITRE</h1>
     <p>Somos desarrolladores de software y de aplicaciones android, además de hacer impresiones 3D</p>
   </header>
@@ -107,6 +118,12 @@
   <section class="market">
     <h2>Mercado Industrial Initre</h2>
     <p>Compra y venta de equipos industriales.</p>
+    <a class="btn" href="https://mercado-industrial.onrender.com" target="_blank" rel="noopener">Visitar el sitio web</a>
+  </section>
+
+  <section>
+    <h2>Facebook</h2>
+    <p class="market-text">Síguenos en Facebook: Mercado Industrial Initre.</p>
     <a class="btn" href="https://www.facebook.com/share/19ZwpKgLHM/" target="_blank" rel="noopener">Visitar en Facebook</a>
   </section>
 
@@ -120,10 +137,6 @@
       <li>
         <span>Correo</span>
         <a href="mailto:mercadoindustrialinitre@gmail.com">mercadoindustrialinitre@gmail.com</a>
-      </li>
-      <li>
-        <span>Facebook</span>
-        <a href="https://www.facebook.com/share/19ZwpKgLHM/" target="_blank" rel="noopener">Mercado Industrial Initre</a>
       </li>
       <li>
         <span>Ubicación</span>
