@@ -28,15 +28,15 @@
   header .logo { width: 280px; max-width: 82%; height: auto; border-radius: 16px; margin-bottom: 20px; }
   header h1 { font-size: 2rem; letter-spacing: 0.14em; font-weight: 700; color: #ffffff; }
   header p { margin-top: 12px; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
-  .service details { padding: 12px 0; border-top: 1px solid #f0f0f0; }
-  .service details:first-child { border-top: none; padding-top: 0; }
+  .service details { background: #ffffff; border: 1px solid #eef0f3; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .service details:last-child { margin-bottom: 0; }
   .service summary { cursor: pointer; font-size: 1.05rem; font-weight: 600; list-style: none; }
   .service summary::-webkit-details-marker { display: none; }
   .service summary::after { content: " +"; color: #033b86; }
   .service details[open] summary::after { content: " −"; }
   .service p { color: #555555; margin-top: 0; }
   .service img { width: 100%; height: auto; border-radius: 12px; margin: 12px 0; display: block; }
-  section { background: #ffffff; border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+  section { background: #ffffff; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
   h2 { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 24px; font-weight: 600; }
   .app { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-top: 1px solid #f0f0f0; }
   .app:first-of-type { border-top: none; padding-top: 0; }
@@ -52,7 +52,10 @@
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
+  .btn:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0,0,0,0.25); }
   .btn-whatsapp { background: #25d366; margin-top: 20px; }
   .btn-whatsapp:hover { background: #1eb856; }
   .btn-facebook { background: #1877f2; }
