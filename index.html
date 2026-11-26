@@ -72,6 +72,15 @@
   .contact-list a { color: #111111; text-decoration: none; font-weight: 600; }
   .contact-list a:hover { text-decoration: underline; }
   footer { text-align: center; padding: 24px 0 56px; color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+  footer p { margin-top: 8px; }
+  .privacy-btn { background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.7); border-radius: 999px; padding: 8px 18px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+  .privacy-btn:hover { background: rgba(255,255,255,0.12); }
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 20; padding: 20px; }
+  .modal.open { display: flex; }
+  .modal-box { background: #ffffff; border-radius: 16px; padding: 24px; max-width: 520px; box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+  .modal-box h3 { font-size: 1.15rem; margin-bottom: 12px; }
+  .modal-box p { color: #555555; font-size: 0.95rem; margin-bottom: 12px; }
+  .modal-box .btn { background: #033b86; }
   .chat-btn { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%; border: none; background: #033b86; color: #ffffff; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,0.35); z-index: 10; display: flex; align-items: center; justify-content: center; }
   .chat-btn svg { width: 28px; height: 28px; }
   .chat-panel { position: fixed; right: 20px; bottom: 92px; width: 360px; max-width: calc(100vw - 40px); max-height: 70vh; background: #ffffff; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.35); z-index: 10; display: none; flex-direction: column; overflow: hidden; }
@@ -195,8 +204,21 @@
   </section>
 
   <footer>
-    © 2026 Ingeniería INITRE · Puebla, México
+    <button class="privacy-btn" id="privacyBtn" type="button">Aviso de privacidad</button>
+    <p>© 2026 Ingeniería INITRE. Todos los derechos reservados.</p>
+    <p>Puebla, México</p>
   </footer>
+
+  <div class="modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="modal-box">
+      <h3 id="privacyTitle">Aviso de privacidad</h3>
+      <p>Esta página web no recopila, almacena ni comparte datos personales de sus visitantes.</p>
+      <p>Si nos contactas por WhatsApp o correo electrónico, tus datos se usan únicamente para atender tu mensaje.</p>
+      <p>Nuestras aplicaciones móviles (Servicios Initre, Carosi y Seguridad Initre) cuentan con sus propios avisos de privacidad, disponibles en Google Play.</p>
+      <p>Responsable: Ingeniería INITRE, Puebla, México. Contacto: mercadoindustrialinitre@gmail.com</p>
+      <button class="btn" id="privacyClose" type="button">Cerrar</button>
+    </div>
+  </div>
 
 </div>
 <button class="chat-btn" id="chatBtn" aria-label="Abrir asistente">
@@ -234,6 +256,7 @@
     { k: ['mercado', 'equipos industriales', 'piezas industriales'], r: 'Mercado Industrial Initre es compra y venta de equipos industriales. Visita su sitio web: <a href="https://mercado-industrial.onrender.com" target="_blank" rel="noopener">mercado-industrial.onrender.com</a>' },
     { k: ['carosi', 'seguridad initre', 'play store', 'descargar', 'google play', 'apps'], r: 'Tenemos 3 apps en Google Play: Servicios Initre, Carosi y Seguridad Initre. Las encuentras en la sección "Nuestras aplicaciones" de esta página.' },
     { k: ['contacto', 'whatsapp', 'telefono', 'correo', 'email', 'ubicacion', 'donde estan', 'direccion', 'horario'], r: 'Puedes contactarnos por WhatsApp al <a href="' + WA + '" target="_blank" rel="noopener">56 6660 5390</a> o por correo a mercadoindustrialinitre@gmail.com. Estamos en Puebla, México.' },
+    { k: ['privacidad', 'aviso de privacidad', 'datos personales', 'mis datos'], r: 'Esta página no recopila ni almacena datos personales de sus visitantes. Puedes leer el aviso completo con el botón "Aviso de privacidad" al final de la página. Nuestras apps tienen sus propios avisos de privacidad en Google Play.' },
     { k: ['servicio', 'servicios', 'que hacen', 'que ofrecen'], r: 'Nuestros servicios son: Desarrollo de software, Páginas web, Impresiones 3D y Diseños 3D. Toca un servicio en la página para ver su descripción, o pregúntame por uno.' },
     { k: ['gracias'], r: '¡De nada! Si necesitas algo más, aquí estoy.' }
   ];
@@ -272,6 +295,14 @@
   input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
   var chips = document.querySelectorAll('.chip');
   chips.forEach(function (c) { c.addEventListener('click', function () { send(c.textContent); }); });
+})();
+</script>
+<script>
+(function () {
+  var modal = document.getElementById('privacyModal');
+  document.getElementById('privacyBtn').addEventListener('click', function () { modal.classList.add('open'); });
+  document.getElementById('privacyClose').addEventListener('click', function () { modal.classList.remove('open'); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('open'); });
 })();
 </script>
 </body>
